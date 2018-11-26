@@ -1,5 +1,8 @@
 ﻿namespace FSharpKoans
 open FSharpKoans.Core
+open System
+open System.Globalization
+
 
 //---------------------------------------------------------------
 // Apply Your Knowledge!
@@ -60,6 +63,35 @@ module ``about the stock example`` =
 
     [<Koan>]
     let YouGotTheAnswerCorrect() =
-        let result =  __
+        let difference(openingPrice : float, closingPrice : float) =
+            abs (openingPrice - closingPrice)
+
+        let parsePrice(price : string) =
+            Double.Parse(price, CultureInfo.InvariantCulture)
+
+        let mapEntries(entries : string list) =
+            let split (string : string) =
+                (string.Split([|','|]))
+
+            let getOpeningPrice(value : string []) =
+                parsePrice(value.[1])
+
+            let getClosingPrice(value : string []) =
+                parsePrice(value.[4])
+
+            let map (entry : string []) =
+                (difference(getOpeningPrice(entry), getClosingPrice(entry)), entry.[0])
+
+            entries
+            |> List.map split
+            |> List.map map
+
+        let result = 
+            stockData
+            |> List.skip 1
+            |> mapEntries
+            |> List.sortByDescending (fun entry -> fst entry)
+            |> List.head
+            |> snd
         
         AssertEquality "2012-03-13" result

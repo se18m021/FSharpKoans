@@ -19,7 +19,7 @@ module ``about looping`` =
         for value in values do
             sum <- sum + value
 
-        AssertEquality sum __
+        AssertEquality sum (10 * 11 / 2)
        
     [<Koan>]
     let LoopingWithExpressions() =
@@ -28,7 +28,7 @@ module ``about looping`` =
         for i = 1 to 5 do
             sum <- sum + i
 
-        AssertEquality sum __
+        AssertEquality sum (1 + 2 + 3 + 4 + 5)
 
     [<Koan>]
     let LoopingWithWhile() =
@@ -37,7 +37,7 @@ module ``about looping`` =
         while sum < 10 do
             sum <- sum + sum
 
-        AssertEquality sum __
+        AssertEquality sum (1 * 2 * 2 * 2 * 2)
 
     (* NOTE: While these looping constructs can come in handy from time to time,
              it's often better to use a more functional approach for looping
